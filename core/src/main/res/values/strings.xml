@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rating">Rating %s/5.0</string>
+    <string name="game_image">Game Image</string>
+    <string name="no_data">Empty data</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
+    <string name="description">Description</string>
+    <string name="title_favorite">Favorite</string>
+</resources>

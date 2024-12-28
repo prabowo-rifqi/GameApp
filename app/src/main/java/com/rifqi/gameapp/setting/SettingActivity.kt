@@ -11,6 +11,7 @@ import com.rifqi.gameapp.databinding.ActivitySettingBinding
 
 class SettingsActivity : AppCompatActivity() {
 
+
     private val binding: ActivitySettingBinding by lazy {
         ActivitySettingBinding.inflate(layoutInflater)
     }
@@ -44,10 +45,9 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        private fun updateTheme(mode: Int): Boolean {
+        private fun updateTheme(mode: Int) {
             AppCompatDelegate.setDefaultNightMode(mode)
             requireActivity().recreate()
-            return true
         }
     }
 }

@@ -23,13 +23,14 @@ class DetailGameActivity : AppCompatActivity() {
         ActivityDetailGameBinding.inflate(layoutInflater)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         val gameId = intent.getIntExtra(EXTRA_DATA, 0)
-        statusFavorite = intent.getBooleanExtra(EXTRA_ISFAVORITE, false)
+        statusFavorite = intent.getBooleanExtra(EXTRA_IS_FAVORITE, false)
 
         setStatusFavorite(statusFavorite)
 
@@ -102,6 +103,6 @@ class DetailGameActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
-        const val EXTRA_ISFAVORITE = "extra_isfavorite"
+        const val EXTRA_IS_FAVORITE = "extra_is_favorite"
     }
 }

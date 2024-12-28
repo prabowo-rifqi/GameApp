@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Dark Mode Theme -->
     <style name="Theme.GameApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Dark Mode Colors -->

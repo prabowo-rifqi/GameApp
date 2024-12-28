@@ -8,6 +8,9 @@ import com.rifqi.core.data.source.local.room.GameDatabase
 import com.rifqi.core.data.source.remote.RemoteDataSource
 import com.rifqi.core.data.source.remote.network.ApiService
 import com.rifqi.core.domain.repository.IGameRepository
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,19 +22,30 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<GameDatabase>().gameDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("rifqi".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
-            GameDatabase::class.java, "Game.db"
-        ).fallbackToDestructiveMigration().build()
+            GameDatabase::class.java, "Game"
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "api.rawg.io"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/rhypbHsBCWn1eHBbbvLOsoQ3eFb65FBKu4wPIWSaVeM=")
+            .add(hostname, "sha256/kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=")
+            .add(hostname, "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {

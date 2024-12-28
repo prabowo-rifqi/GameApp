@@ -20,7 +20,14 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -54,4 +61,10 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.monitor)
+
+
+
+    debugImplementation(libs.leakcanary.android)
 }
+

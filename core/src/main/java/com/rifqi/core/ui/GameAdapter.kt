@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rifqi.core.databinding.ItemListGameBinding
+import com.rifqi.core.domain.model.Game
 import com.rifqi.core.utils.DateUtils
 
 class GameAdapter :
-    ListAdapter<com.rifqi.core.domain.model.Game, GameAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<Game, GameAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    var onItemClick: ((com.rifqi.core.domain.model.Game) -> Unit)? = null
+    var onItemClick: ((Game) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ListViewHolder(
@@ -30,7 +31,7 @@ class GameAdapter :
 
     inner class ListViewHolder(private var binding: ItemListGameBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.rifqi.core.domain.model.Game) {
+        fun bind(data: Game) {
             Glide.with(itemView.context)
                 .load(data.imageUrl)
                 .into(binding.ivItemImage)
@@ -47,18 +48,18 @@ class GameAdapter :
     }
 
     companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<com.rifqi.core.domain.model.Game> =
-            object : DiffUtil.ItemCallback<com.rifqi.core.domain.model.Game>() {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<Game> =
+            object : DiffUtil.ItemCallback<Game>() {
                 override fun areItemsTheSame(
-                    oldItem: com.rifqi.core.domain.model.Game,
-                    newItem: com.rifqi.core.domain.model.Game
+                    oldItem: Game,
+                    newItem: Game
                 ): Boolean {
                     return oldItem.gameId == newItem.gameId
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: com.rifqi.core.domain.model.Game,
-                    newItem: com.rifqi.core.domain.model.Game
+                    oldItem: Game,
+                    newItem: Game
                 ): Boolean {
                     return oldItem == newItem
                 }

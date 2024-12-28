@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
+@Suppress("EmptyMethod")
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private var result: Flow<Resource<ResultType>> = flow {
@@ -19,9 +20,11 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
+
                 is ApiResponse.Empty -> {
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
+
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     emit(Resource.Error(apiResponse.errorMessage))

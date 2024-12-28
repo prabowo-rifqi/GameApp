@@ -32,8 +32,8 @@ class GameRepository(
                 remoteDataSource.getAllGame()
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
-                val gameList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.insertGame(gameList)
+                val tourismList = DataMapper.mapResponsesToEntities(data)
+                localDataSource.insertGame(tourismList)
             }
         }.asFlow()
 

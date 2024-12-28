@@ -16,3 +16,4 @@ data class ListGameResponse(
     @field:SerializedName("results")
     val results: List<GameResponse>,
 )
+
